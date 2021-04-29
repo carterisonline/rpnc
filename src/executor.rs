@@ -33,7 +33,7 @@ impl Executable<Vec<Token>> for Vec<Token> {
                 let i1 = pop_num!(stack);
                 stack.push(Token::NUMBER(!(i1.floor() as i64) as f64))
             }
-            Token::CLEAR => stack.clear(),
+            Token::CLEAR => *stack = Vec::new(),
             Token::POP => {
                 stack.pop();
             }
