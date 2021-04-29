@@ -1,8 +1,13 @@
-use std::io::stdin;
-
-use rpnc::log;
+use once_cell::sync::Lazy;
+use parking_lot::Mutex;
+use rpnc::executor::Executable;
+use rpnc::parser::Token;
 use rpnc::parser::Tokenizer;
 use rpnc::util::FancyThrow;
+use rpnc::{log, log_debug};
+use std::io::stdin;
+
+static STACK: Lazy<Mutex<Vec<Token>>> = Lazy::new(|| Mutex::new(vec![]));
 
 fn main() {
     let stdin = stdin();
@@ -11,6 +16,12 @@ fn main() {
         stdin
             .read_line(&mut x)
             .expect_fancy("Error reading new line from stdin");
-        println!("{:?}", x.tokenize());
+        let tokened = x.tokenize();
+        log!("Parsed Input: ", Yellow);
+        log_debug!(tokened);
+        let mut s = (*STACK).lock();
+        tokened.execute(&mut s);
+        log!("Resulting Stack: ", Green);
+        log_debug!((&s));
     }
 }

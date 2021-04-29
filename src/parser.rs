@@ -3,9 +3,9 @@ use regex::Regex;
 
 use crate::{error, util::FancyThrow};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Token {
-    INNER(Box<Token>),
+    INNER(Vec<Token>),
     ADD,
     SUBTRACT,
     MULTIPLY,
@@ -18,7 +18,6 @@ pub enum Token {
     NOT,
     SHIFTLEFT,
     SHIFTRIGHT,
-    SHIFTRIGHTZERO,
     NUMBER(f64),
 }
 
@@ -41,13 +40,12 @@ impl Tokenizer for String {
                 "/" | "÷" => tokens.push(Token::DIVIDE),
                 "^" => tokens.push(Token::POWER),
                 "°" => tokens.push(Token::DEGREES),
-                "b&" => tokens.push(Token::AND),
-                "b|" => tokens.push(Token::OR),
-                "b^" => tokens.push(Token::XOR),
-                "b!" => tokens.push(Token::NOT),
-                "b<<" => tokens.push(Token::SHIFTLEFT),
-                "b>>" => tokens.push(Token::SHIFTRIGHT),
-                "b>>>" => tokens.push(Token::SHIFTRIGHTZERO),
+                "i&" => tokens.push(Token::AND),
+                "i|" => tokens.push(Token::OR),
+                "i^" => tokens.push(Token::XOR),
+                "i!" => tokens.push(Token::NOT),
+                "i<<" => tokens.push(Token::SHIFTLEFT),
+                "i>>" => tokens.push(Token::SHIFTRIGHT),
                 "¹" => {
                     tokens.push(Token::NUMBER(1.0));
                     tokens.push(Token::POWER);

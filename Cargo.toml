@@ -1,5 +1,5 @@
 [package]
-authors = ["Carter Reeb <carter2k4@pm.me>"]
+authors = ["Carter Reeb <reebcw@pm.me>"]
 edition = "2018"
 name = "rpnc"
 version = "0.1.0"
@@ -8,6 +8,7 @@ version = "0.1.0"
 
 [dependencies]
 once_cell = "1.7"
+parking_lot = "0.11"
 regex = "1.4"
 termion = "1.5"
 
