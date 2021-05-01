@@ -7,12 +7,10 @@ pub trait Executable<T> {
 
 impl Executable<Vec<Token>> for Vec<Token> {
     fn execute(&self, stack: &mut Vec<Token>) {
-        let mut step = 0;
-        for token in self {
+        for (step, token) in self.iter().enumerate() {
             if !Self::exec_token(self, step, token, stack) {
                 break;
             }
-            step += 1;
         }
     }
 

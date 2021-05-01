@@ -3,7 +3,7 @@ use regex::Regex;
 
 use crate::{error, util::FancyThrow};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Token {
     ADD,
     SUBTRACT,
@@ -75,6 +75,6 @@ impl Tokenizer for String {
             }
         }
 
-        return tokens;
+        tokens
     }
 }
